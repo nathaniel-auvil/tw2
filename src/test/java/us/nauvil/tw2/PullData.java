@@ -2,11 +2,18 @@ package us.nauvil.tw2;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class PullData {
 
 	public static void main(String[] args) {
+
+		System.out.println("args: " + Arrays.toString(args));
+
+		String username = args[0];
+		String password = args[1];
+
 		try {
 			// open websocket
 			String theUrl = "wss://us.tribalwars2.com/socket.io/1/websocket/" + UUID.randomUUID().toString();
@@ -31,7 +38,11 @@ public class PullData {
 			// websocket","transport":"websocket","host":"us0w3.twx","maintenance":false}}]}
 			String login = "5:::{\"name\":\"msg\",\"args\":[{\"type\":\"Authentication/login\",\"data\":{\"name\":\"username\",\"pass\":\"password\"},\"id\":1,\"headers\":{\"traveltimes\":[[\"browser_send\"," + System.currentTimeMillis() / 1000 + "]]}}]}";
 
-			clientEndPoint.sendMessage(login);
+			String login2 = "{\"type\":\"Authentication/login\",\"data\":{\"name\":\"" + username + "\",\"pass\":\"" + password + "\"},\"id\":1,\"headers\":{\"traveltimes\":[[\"browser_send\",\"22\"]]}}";
+
+			System.out.println("socket message: " + login2);
+
+			clientEndPoint.sendMessage(login2);
 
 			// 5:::{"name":"msg","args":[{"type":"Chat/getTribeChatHistory","id":31,"headers":{"traveltimes":[["browser_send",1486834760734]]}}]}
 
